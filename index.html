@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Marketing Platform Features</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background-color: #f8f9fa;
+        padding: 20px;
+        line-height: 1.5;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        color: #666;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, auto);
+        gap: 16px;
+        max-width: 1200px;
+        margin: 0 auto 40px;
+      }
+
+      .feature-card {
+        background: white;
+        border: 2px solid #e9e9e9;
+        border-radius: 12px;
+        padding: 24px 24px 10px;
+        position: relative;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        /* flex-direction: row-reverse; Changed flex-direction to row-reverse to put icons on the right */
+      }
+
+      .feature-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(37, 99, 235, 0.15);
+        border: 1px solid rgb(29, 89, 249);
+        background-color: rgb(243, 245, 254);
+      }
+      .feature-card:hover .show {
+        display: none;
+      }
+      .show {
+        margin: 0 auto;
+        display: flex;
+      }
+      .feature-card:hover .hide {
+        display: block;
+      }
+      .hide {
+        display: none;
+        margin: 0 auto;
+      }
+      .card-content {
+        flex: 1;
+      }
+
+      .card-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        border-radius: 8px;
+        font-size: 24px;
+      }
+
+      .feature-card h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .feature-card p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .analytics {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .analytics .card-icon {
+        display: none;
+      }
+
+      .editing {
+        grid-column: 2 / 4;
+        grid-row: 1 / 2;
+      }
+
+      .dynamic-qr {
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
+      }
+
+      .unlimited-users {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+
+      .download-formats {
+        grid-column: 3 / 5;
+        grid-row: 2 / 3;
+      }
+
+      .templates {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+      }
+
+      .static-qr {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+      }
+
+      .bulk-creation {
+        grid-column: 3 / 4;
+        grid-row: 3 / 4;
+      }
+
+      .pixel-integration {
+        grid-column: 4 / 5;
+        grid-row: 3 / 5;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .pixel-integration .card-icon {
+        display: none;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 12px;
+        margin: 16px 0;
+        flex-wrap: wrap;
+      }
+
+      .social-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        font-size: 0.8rem;
+      }
+
+      .cta-button {
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+        padding: 16px 32px;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.2s ease;
+      }
+
+      .cta-button:hover {
+        background: #1d4ed8;
+      }
+
+      @media (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(3, 1fr);
+          max-width: 900px;
+        }
+
+        .editing {
+          grid-column: 1 / 3;
+        }
+
+        .download-formats {
+          grid-column: 2 / 4;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .card-icon {
+          width: 50%;
+          height: auto;
+        }
+        .analytics img,
+        .pixel-integration img {
+          width: 50% !important;
+        }
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          max-width: 600px;
+        }
+
+        .feature-card {
+          padding: 16px;
+          flex-direction: column; /* Stack content vertically on mobile for better readability */
+          text-align: center;
+        }
+
+        .card-icon {
+          align-self: center;
+          margin-bottom: 8px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .header p {
+          font-size: 1rem;
+        }
+
+        .analytics,
+        .editing,
+        .dynamic-qr,
+        .unlimited-users,
+        .download-formats,
+        .templates,
+        .static-qr,
+        .bulk-creation,
+        .pixel-integration {
+          grid-column: auto !important; /* Reset grid positioning for mobile */
+          grid-row: auto !important;
+        }
+        .card-content {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        body {
+          padding: 10px;
+        }
+
+        .feature-card {
+          padding: 12px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .social-icons {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Your all-in-one marketing platform</h1>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card analytics">
+        <div class="chart-placeholder"></div>
+        <div class="card-content">
+          <h3>Complete analytics</h3>
+          <p>Understand performance with detailed data</p>
+        </div>
+        <img
+          src="./assets/analytics.png"
+          width="70%"
+          alt="analytics"
+          class="show"
+        />
+        <img
+          src="./assets/analytics-hover.png"
+          width="70%"
+          alt="analytics"
+          class="hide"
+        />
+      </div>
+
+      <div class="feature-card editing">
+        <div class="card-content">
+          <h3>Editing and management of QRs</h3>
+          <p>Customize and organize your QRs.</p>
+        </div>
+        <div class="card-icon">
+          <img
+            src="./assets/management.png"
+            alt="Management"
+            width="100%"
+            class="show"
+          />
+          <img
+            src="./assets/management-hover.png"
+            alt="Management"
+            width="100%"
+            class="hide"
+          />
+        </div>
+      </div>
+
+      <div class="feature-card dynamic-qr">
+        <div class="card-content">
+          <h3>Dynamic QR Codes</h3>
+          <p>QR codes that can be updated in real time</p>
+        </div>
+        <div class="card-icon">
+          <img src="./assets/qr.png" alt="QR" width="100%" class="show" />
+          <img src="./assets/qr-hover.png" alt="QR" width="100%" class="hide" />
+        </div>
+      </div>
+
+      <div class="feature-card unlimited-users">
+        <div class="card-content">
+          <h3>Unlimited Contributing Users</h3>
+          <p>Manage your QR codes as a team</p>
+        </div>
+        <div class="card-icon">
+          <img
+            src="./assets/contribution.png"
+            alt="QR"
+            width="100%"
+            class="show"
+          />
+          <img
+            src="./assets/contribution-hover.png"
+            alt="QR"
+            width="100%"
+            class="hide"
+          />
+        </div>
+      </div>
+
+      <div class="feature-card download-formats">
+        <div class="card-content">
+          <h3>Variety of download formats</h3>
+          <p>Expand the possibilities of use of your QRs</p>
+        </div>
+        <div class="card-icon">
+          <img src="./assets/download.png" alt="QR" width="100%" class="show" />
+          <img
+            src="./assets/download-hover.png"
+            alt="QR"
+            width="100%"
+            class="hide"
+          />
+        </div>
+      </div>
+
+      <div class="feature-card templates">
+        <div class="card-content">
+          <h3>Templates</h3>
+          <p>Save and reuse your own designs</p>
+        </div>
+      </div>
+
+      <div class="feature-card static-qr">
+        <div class="card-content">
+          <h3>Static QR</h3>
+          <p>Permanent QR codes</p>
+        </div>
+      </div>
+
+      <div class="feature-card bulk-creation">
+        <div class="card-content">
+          <h3>Bulk creation and download</h3>
+          <p>Generate and download QRs on a large scale</p>
+        </div>
+        <div class="card-icon">
+          <img src="./assets/creation.png" alt="QR" width="100%" class="show" />
+          <img
+            src="./assets/creation-hover.png"
+            alt="QR"
+            width="100%"
+            class="hide"
+          />
+        </div>
+      </div>
+
+      <div class="feature-card pixel-integration">
+        <div class="card-content">
+          <h3>Google and Facebook pixel integration</h3>
+          <p>Improve the analysis of your digital campaigns</p>
+        </div>
+        <img src="./assets/social.png" alt="QR" width="80%" class="show" />
+        <img
+          src="./assets/social-hover.png"
+          alt="QR"
+          width="80%"
+          class="hide"
+        />
+      </div>
+
+      <div class="feature-card custom-domain">
+        <div class="card-content">
+          <h3>Custom Domain</h3>
+          <p>Strengthen your brand with your own domain</p>
+        </div>
+        <div class="card-icon">
+          <img
+            src="./assets/domain-name.png"
+            alt="QR"
+            width="100%"
+            class="show"
+          />
+          <img
+            src="./assets/domain-name-hover.png"
+            alt="QR"
+            width="100%"
+            class="hide"
+          />
+        </div>
+      </div>
+
+      <div class="feature-card password-protection">
+        <div class="card-content">
+          <h3>Password access protection</h3>
+        </div>
+      </div>
+
+      <div class="feature-card event-tracking">
+        <div class="card-content">
+          <h3>Event tracking</h3>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="cta-button">Create QR code</a>
+  </body>
+</html>
